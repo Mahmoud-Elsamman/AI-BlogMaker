@@ -12,7 +12,7 @@ export default withApiAuthRequired(async function handler(req, res) {
   });
 
   if (!userProfile?.availableTokens) {
-    res.status(401);
+    res.status(403);
     return;
   }
   const config = new Configuration({
@@ -25,6 +25,10 @@ export default withApiAuthRequired(async function handler(req, res) {
   //   const topic = "Top 10 tips for dog owners";
   //   const keywords =
   //     "first-time dog owner, common dog health issues, best dog breeds";
+  if (!topic || !keywords || topic.length > 80 || keywords.length > 80) {
+    res.status(422);
+    return;
+  }
 
   const response = await openAI.createCompletion({
     model: "text-davinci-003",

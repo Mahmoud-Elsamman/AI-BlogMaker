@@ -1,12 +1,33 @@
-import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Link from "next/link";
+import { useContext, useEffect } from "react";
+import PostsContext from "../../context/postsContext";
 import { Logo } from "../Logo";
 
-export const AppLayout = ({ children, availableTokens, posts, postId }) => {
+export const AppLayout = ({
+  children,
+  availableTokens,
+  posts: postsFromSSR,
+  postId,
+  postCreated,
+}) => {
   const { user } = useUser();
+
+  const { setPostsFromSSR, posts, getPosts, noMorePosts } =
+    useContext(PostsContext);
+
+  useEffect(() => {
+    setPostsFromSSR(postsFromSSR);
+    if (postId) {
+      const exists = postsFromSSR.find((post) => post._id === postId);
+      if (!exists) {
+        getPosts({ getNewerPosts: true, lastPostDate: postCreated });
+      }
+    }
+  }, [postsFromSSR, setPostsFromSSR, postId, postCreated, getPosts]);
 
   return (
     <div className='grid grid-cols-[300px_1fr] h-screen max-h-screen'>
@@ -33,6 +54,16 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
               {post.topic}
             </Link>
           ))}
+          {!noMorePosts && (
+            <div
+              onClick={() => {
+                getPosts({ lastPostDate: posts[posts.length - 1].created });
+              }}
+              className='hover:underline text-sm text-slate-400 text-center cursor-pointer mt-4'
+            >
+              Load more posts
+            </div>
+          )}
         </div>
         <div className='bg-cyan-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2'>
           {!!user ? (

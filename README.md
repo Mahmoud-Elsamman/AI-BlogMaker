@@ -1,34 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI-BlogMaker
+
+A full stack SAAS application using OpenAI web API to generate SEO blog posts with react, next.js, Tailwind CSS, auth0, MongoDB and stripe.
 
 ## Getting Started
 
-First, run the development server:
+First of all create a file called `.env.local` then copy all the environment varibles from the `.env.local.sample` file\
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Fill the environment variables in that file as follows:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You must create a database with your account on MongoDB atlas then:-
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Paste the database connection string in the `MONGODB_URI` environment variable.
+- Change the name of the database in all the project with your database name.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Then create an account on Auth0 and add a new project then:-
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Get the auth0 secret, client id, client secret and issur URL.
+- Paste your local URL as the auth0 base URL.
 
-## Learn More
+lastly create an account on stripe and get the stripe secret key then:-
 
-To learn more about Next.js, take a look at the following resources:
+- Create a stripe product and get the product price API key.
+- Create a stripe webhook and get the stripe webhook secret key.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run the application in development mode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To run the application in development mode, run the command:
 
-## Deploy on Vercel
+### `npm run start`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Now open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To build your application for deployment, run the command:
+
+### `npm run build`

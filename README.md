@@ -4,9 +4,11 @@ A full stack SAAS application using OpenAI web API to generate SEO blog posts wi
 
 ## Getting Started
 
-First of all create a file called `.env.local` then copy all the environment varibles from the `.env.local.sample` file\
+First of all create a file called `.env.local` then copy all the environment varibles from the `.env.local.sample` file
 
 Fill the environment variables in that file as follows:
+
+You must create an OpenAI API account to get the OpenAI API key.
 
 You must create a database with your account on MongoDB atlas then:-
 
@@ -27,7 +29,7 @@ lastly create an account on stripe and get the stripe secret key then:-
 
 To run the application in development mode, run the command:
 
-### `npm run start`
+### `npm run dev`
 
 Now open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 

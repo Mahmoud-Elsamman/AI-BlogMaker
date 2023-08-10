@@ -54,7 +54,7 @@ export const AppLayout = ({
               {post.topic}
             </Link>
           ))}
-          {!noMorePosts && (
+          {posts.length > 0 && !noMorePosts && (
             <div
               onClick={() => {
                 getPosts({ lastPostDate: posts[posts.length - 1].created });
@@ -65,7 +65,7 @@ export const AppLayout = ({
             </div>
           )}
         </div>
-        <div className='bg-cyan-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2'>
+        <div className='bg-cyan-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2 overflow-auto'>
           {!!user ? (
             <>
               <div className='min-w-[50px]'>

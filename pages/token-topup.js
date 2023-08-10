@@ -15,11 +15,16 @@ export default function TokenPage() {
     window.location.href = json.session.url;
   };
   return (
-    <div>
-      <h1>This is the the token page</h1>
-      <button className='btn' onClick={handleClick}>
-        Add Tokens
-      </button>
+    <div className='h-screen overflow-hidden flex justify-center items-center relative'>
+      <div className='flex flex-col items-center justify-center h-3/4 w-3/4 relative z-10 text-white px-10 py-5 text-center max-w-screen-sm bg-slate-900/90 rounded-md backdrop-blur-sm'>
+        <div>
+          <h1 className='mb-0'>Start add Tokens now!</h1>
+          <p>add tokens to start create your blog posts. </p>
+          <button className='btn mt-8' onClick={handleClick}>
+            Add Tokens
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

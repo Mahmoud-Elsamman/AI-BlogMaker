@@ -6,16 +6,38 @@ export const getAppProps = async (ctx) => {
   const client = await clientPromise;
   const db = client.db("AI-BlogMaker");
 
-  const user = await db.collection("users").findOne({
+  let user = await db.collection("users").findOne({
     auth0Id: userSession.user.sub,
   });
 
   if (!user) {
-    return {
-      availableTokens: 0,
-      posts: [],
-    };
+    const userProfile = await db.collection("users").updateOne(
+      {
+        auth0Id: userSession.user.sub,
+      },
+      {
+        $inc: {
+          availableTokens: 10,
+        },
+        $setOnInsert: {
+          auth0Id: userSession.user.sub,
+        },
+      },
+      {
+        upsert: true,
+      }
+    );
+
+    user = await db.collection("users").findOne({
+      auth0Id: userSession.user.sub,
+    });
   }
+  // if (!user) {
+  //   return {
+  //     availableTokens: 0,
+  //     posts: [],
+  //   };
+  // }
 
   const posts = await db
     .collection("posts")
